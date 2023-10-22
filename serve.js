@@ -6,6 +6,7 @@ const sockets = new Set()
 const channel = new BroadcastChannel("")
 
 channel.onmessage = e => {
+  (e.target != channel) && channel.postMessage(e.data)
   channel.postMessage(e.data)
   sockets.forEach(s => s.send(e.data))
 }
